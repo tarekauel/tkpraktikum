@@ -1,50 +1,80 @@
 var logger = require('winston');
-var _ = require('underscore');
 
 module.exports = function(app, ds, callback) {
-
-  app.models.Role.find({}, function(err, roles) {
-    if(err) return callback(err);
-    var chair = roles.filter(function(r) {return r.name === 'chair'})[0];
-    var author = roles.filter(function(r) {return r.name === 'author'})[0];
-
-    var users = [
+  var conferences = [],
+    author = {
+      username: 'author',
+      password: 'tk',
+      email: 'author1@chair.de',
+      emailVerified: true
+    },
+    chairs = [
       {
-        username: 'chair',
-        password: 'chair',
-        email: 'chair@chair.de',
+        username: 'chairman1',
+        password: 'tk',
+        email: 'chairmen1@chair.de',
         emailVerified: true
       },
       {
-        username: 'author',
-        password: 'author',
-        email: 'author@author.de',
+        username: 'chairman2',
+        password: 'tk',
+        email: 'chairman2@chair.de',
         emailVerified: true
       }
     ];
 
-    var userRoles  = {
-        "chair@chair.de": [chair, author],
-        "author@author.de": [author]
-      };
+  app.models.conference.find({}, function (err, results) {
+    results.map(function (conference, idx) {
+      chairs[idx].defaultConferenceId = conference.id;
+      author.defaultConferenceId = conference.id;
+    });
 
-    app.models.user.create(users, function(err, model) {
-        if(err) return callback(err);
-        var principals = model.map(function(u) {
-          return userRoles[u.email].map(function (role) {
-            return {
-              principalType: app.models.roleMapping.USER,
-              principalId: u.id,
-              roleId: role.id
-            };
-          });
-        });
-        principals = _.flatten(principals);
-        app.models.roleMapping.create(principals, function(err) {
-          if(err) return callback(err);
-          logger.info("created user role mapping");
-          callback(err);
-        });
+    conferences = results;
+  });
+
+  app.models.user.create(author, function (err, model) {
+    if (err) return callback(err);
+    author.id = model.id;
+    model.updateAttribute('defaultConferenceId', author.defaultConferenceId);
+    logger.info('Author created');
+  });
+
+  app.models.user.create(chairs, function(err, users) {
+    if(err) return callback(err);
+
+    users.map(function(u, idx) {
+      u.updateAttribute('defaultConferenceId', chairs[idx].defaultConferenceId);
+
+      app.models.attendance.create({
+        conferenceId: conferences[idx].id,
+        attendeeId: u.id
+      }, function (err, model) {
+        if (!err) logger.info('Assigned attendee to conference:', u.username, conferences[idx].name);
+      });
+
+      app.models.attendance.create({
+        conferenceId: conferences[idx].id,
+        attendeeId: author.id
+      }, function (err, model) {
+        if (!err) logger.info('Assigned attendee to that conference:', author.username);
+      });
+
+      app.models.chairman.create({
+        conferenceId: conferences[idx].id,
+        chairId: u.id
+      }, function (err, model) {
+        if (!err) logger.info('Assigned chairman to that conference:', u.username);
+      });
+
+      app.models.author.create({
+        conferenceId: conferences[idx].id,
+        authorId: author.id
+      }, function (err, model) {
+        if (!err) logger.info('Assiged author to that conference:', author.username);
       });
     });
+
+    logger.info('Created chairmans');
+    callback(err);
+  });
 };

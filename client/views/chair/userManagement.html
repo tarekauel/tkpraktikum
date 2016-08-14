@@ -1,0 +1,48 @@
+<h1>Users</h1>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>
+        <a ui-sref="chair" ng-click="sortType = 'title'; sortReverse = !sortReverse">
+          Title
+          <span ng-show="sortType == 'title' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'title' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a ui-sref="chair" ng-click="sortType = 'email'; sortReverse = !sortReverse">
+          E-Mail
+          <span ng-show="sortType == 'email' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'email' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th style="text-align: center">Author</th>
+      <th style="text-align: center">Reviewer</th>
+      <th style="text-align: center">Chair</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="u in userList | orderBy:sortType:sortReverse | filter:searchUser">
+      <td>{{u.username}}</td>
+      <td>{{u.email}}</td>
+      <td>
+        <div class="checkbox" style="text-align: center">
+          <label><input type="checkbox" ng-model="u.isAuthor" ng-change="changeAuthor(u)" /></label>
+        </div>
+      </td>
+      <td>
+        <div class="checkbox" style="text-align: center">
+          <label><input type="checkbox" ng-model="u.isReviewer" ng-change="changeReviewer(u)" /></label>
+        </div>
+      </td>
+      <td>
+        <div class="checkbox form-group" style="text-align: center">
+          <label><input type="checkbox" ng-model="u.isChair" ng-change="changeChair(u)" ng-disabled="u.isMe"/></label>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

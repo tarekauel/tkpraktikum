@@ -1,0 +1,24 @@
+{
+  "name": "chairman",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "conference": {
+      "type": "belongsTo",
+      "model": "conference",
+      "foreignKey": "conferenceId"
+    },
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "chairId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

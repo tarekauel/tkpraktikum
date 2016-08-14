@@ -30,14 +30,6 @@
     "dataSource": "postgres",
     "public": false
   },
-  "roleMapping": {
-    "dataSource": "postgres",
-    "public": false
-  },
-  "Role": {
-    "dataSource": "postgres",
-    "public": false
-  },
   "user": {
     "dataSource": "postgres",
     "public": true
@@ -71,6 +63,22 @@
     "public": true
   },
   "authorship": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "attendance": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "chairman": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "author": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "reviewer": {
     "dataSource": "postgres",
     "public": true
   },

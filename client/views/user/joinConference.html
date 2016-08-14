@@ -1,0 +1,24 @@
+<div class="col-lg-4 col-md-6 col-sm-8 col-xs-12 centerContent">
+  <h1 class="text-center">Join Conference</h1>
+  <br/>
+  <form name="joinConferenceForm" ng-submit="join()" novalidate>
+    <div class="form-group"
+         ng-class="{ 'has-error': (joinConferenceForm.name.$dirty && joinConferenceForm.name.$error.required) || (joinConferenceForm.name.$invalid && !joinConferenceForm.name.$error.required) }">
+      <label class="control-label" for="name">Conference Name</label>
+      <input type="text" autocomplete="off" name="name" id="name" placeholder="Conference Name"
+             class="form-control validation" required ng-model="conference.name"/>
+    </div>
+    <div class="form-group"
+         ng-class="{ 'has-error': (joinConferenceForm.sharedSecret.$dirty && joinConferenceForm.sharedSecret.$error.required) || (joinConferenceForm.sharedSecret.$invalid && !joinConferenceForm.sharedSecret.$error.required) }">
+      <label class="control-label" for="sharedSecret">Shared Secret</label>
+      <input type="text" autocomplete="off" name="sharedSecret" id="sharedSecret" placeholder="Shared Secret"
+             class="form-control validation" required ng-model="conference.sharedSecret"/>
+    </div>
+    <div class="form-group">
+      <div class="row centerContent">
+        <button class="btn btn-primary col-lg-12 col-md-12 col-sm-12 col-xs-12">Join Conference</button>
+      </div>
+    </div>
+  </form>
+  <br/>
+</div>

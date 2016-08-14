@@ -4,34 +4,34 @@ var logger = require('winston');
 module.exports = function(app, ds, callback) {
   var tags = [
     {
-      'name': 'Computer Science'
+      'name': 'computer-science'
     },
     {
-      'name': 'Network'
+      'name': 'network'
     },
     {
-      'name': 'Security'
+      'name': 'security'
     },
     {
-      'name': 'Machine Learning'
+      'name': 'machine-learning'
     },
     {
-      'name': 'Big Data'
+      'name': 'big-data'
     },
     {
-      'name': 'Testing'
+      'name': 'testing'
     },
     {
-      'name': 'Software Engineering'
+      'name': 'software-engineering'
     },
     {
-      'name': 'Software Architecture'
+      'name': 'software-architecture'
     }
   ];
 
   app.models.Tag.create(tags, function(err) {
     if (!err) {
-      logger.info('Created tags');  
+      logger.info('Created tags');
     }
     callback(err);
   });

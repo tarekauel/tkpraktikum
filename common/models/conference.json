@@ -22,10 +22,43 @@
     },
     "statusReview": {
       "type": "number"
+    },
+    "sharedSecret": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "attendees": {
+      "type": "hasMany",
+      "model": "user",
+      "through": "attendance",
+      "keyThrough": "attendeeId",
+      "foreignKey": "conferenceId"
+    },
+    "chairs": {
+      "type": "hasMany",
+      "model": "user",
+      "through": "chairman",
+      "keyThrough": "chairId",
+      "foreignKey": "conferenceId"
+    },
+    "reviewer": {
+      "type": "hasMany",
+      "model": "user",
+      "through": "reviewer",
+      "keyThrough": "reviewerId",
+      "foreignKey": "conferenceId"
+    },
+    "authors": {
+      "type": "hasMany",
+      "model": "user",
+      "through": "author",
+      "keyThrough": "authorId",
+      "foreignKey": "conferenceId"
+    }
+  },
   "acls": [
     {
       "accessType": "*",

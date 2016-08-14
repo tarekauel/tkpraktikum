@@ -1,0 +1,49 @@
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ui-sref-active="active" ui-sref="app.protected.home">TK Project - Team Whisky</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li ui-sref-active="active" permission permission-only="'AUTHOR'" ng-cloak><a ui-sref="app.protected.conference.submission.create({conferenceId: currentConferenceId})">Create Submission</a></li>
+        <li ui-sref-active="active" permission permission-only="'AUTHOR'" ng-cloak><a ui-sref="app.protected.conference.submission.list({conferenceId: currentConferenceId})">Show Submission</a></li>
+        <li ui-sref-active="active" permission permission-only="'REVIEWER'" ng-cloak><a ui-sref="app.protected.conference.review.list({conferenceId: currentConferenceId})">Reviews</a></li>
+        <li class="dropdown" ui-sref-active="active" permission permission-only="'CHAIR'" ng-cloak>
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Conference Management <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li ui-sref-active="active" permission permission-only="'CHAIR'" ng-cloak><a ui-sref="app.protected.conference.submission.list({conferenceId: currentConferenceId})">Manage Submissions</a></li>
+            <li ui-sref-active="active" permission permission-only="'CHAIR'" ng-cloak><a ui-sref="app.protected.conference.review.list({conferenceId: currentConferenceId})">Manage Reviews</a></li>
+            <li ui-sref-active="active" permission permission-only="'CHAIR'" ng-cloak><a ui-sref="app.protected.conference.users({conferenceId: currentConferenceId})">Manage Users</a></li>
+            <li ui-sref-active="active" permission permission-only="'CHAIR'" ng-cloak><a ui-sref="app.protected.conference.tag({conferenceId: currentConferenceId})">Tags</a></li>
+            <li ui-sref-active="active" permission permission-only="'CHAIR'" ng-cloak><a ui-sref="app.protected.conference.affiliation({conferenceId: currentConferenceId})">Affiliation</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" ui-sref-active="active" permission permission-only="'USER'" ng-cloak>
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span ng-bind="user.username"></span> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li ui-sref-active="active" permission permission-only="'USER'" ng-cloak><a ui-sref="app.protected.user.profile">Edit Profile</a></li>
+            <li role="separator" class="divider"></li>
+            <li ui-sref-active="active" permission permission-only="'USER'" ng-cloak><a ui-sref="app.protected.user.conference.my">My Conferences</a></li>
+            <li ui-sref-active="active" permission permission-only="'USER'" ng-cloak><a ui-sref="app.protected.user.conference.join">Join Conference</a></li>
+            <li ui-sref-active="active" permission permission-only="'USER'" ng-cloak><a ui-sref="app.protected.user.conference.create">Create Conference</a></li>
+            <li role="separator" class="divider"></li>
+            <li ng-repeat="c in conferences" ui-sref-active="active" permission permission-only="'USER'" ng-cloak><a ng-click="changeConference(c.id)">{{c.name}}</a></li>
+            <li role="separator" class="divider"></li>
+            <li ui-sref-active="active" permission permission-only="'hasValidSession'" ng-cloak><a ui-sref="app.logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

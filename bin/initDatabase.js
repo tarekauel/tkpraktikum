@@ -13,7 +13,6 @@ try {
 var createTags = require('./createTags.js');
 var createConferences = require('./createConferences.js');
 var createAffiliations = require('./createAffiliations.js');
-var createRoles = require('./createRoles.js');
 var createUser = require('./createUser.js');
 
 var app = require(path.resolve(__dirname, '../server/server'));
@@ -23,7 +22,7 @@ ds.automigrate(undefined, function(err) {
   if (err) throw err;
   logger.info('created database schema');
 
-  var createFunctions = [createTags, createAffiliations, createConferences, createRoles, createUser];
+  var createFunctions = [createTags, createAffiliations, createConferences, createUser];
 
   createFunctions = createFunctions.map(function(fn) {
     return function(callback) {
