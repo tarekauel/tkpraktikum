@@ -32,7 +32,7 @@
     "simplemde": "^1.11.2",
     "angular-markdown-directive": "^0.3.1",
     "showdown": "^1.4.3",
-    "eonasdan-bootstrap-datetimepicker": "^4.17.37",
+    "eonasdan-bootstrap-datetimepicker": "git://github.com/Eonasdan/bootstrap-datetimepicker.git#295db971685cc68a7",
     "angular-google-maps": "^2.3.4",
     "simplemde-angular": "^0.0.3"
   },
